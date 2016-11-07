@@ -7,12 +7,20 @@ class KeyboardClass:
         self.shift_pressed = False
         
     def handle_key_up_event( self, event ):
+        if event.key == 304:
+            self.shift_pressed = False
+            return
         return
 
     def handle_key_down_event( self, event ):
         print( event.key )
-        if event.key in [8, 13, 32]:
+        self.letter_typed = ""
+        if event.key in [8, 9, 13, 32]:
             self.handle_operational_keydown( event.key );
+            return
+        if event.key == 304:
+            self.shift_pressed = True
+            return
         if event.key == 97:
             self.letter_typed = "a"
             return
@@ -134,7 +142,13 @@ class KeyboardClass:
   
     def handle_operational_keydown( self, key ):
         if key == 8:
+            if self.shift_pressed == True:
+                self.letter_typed = "clear"
+                return
             self.letter_typed = "delete"
+            return
+        elif key == 9:
+            self.letter_typed = "tab"
             return
         elif key == 13:
             self.letter_typed = "enter"

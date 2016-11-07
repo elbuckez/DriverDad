@@ -4,8 +4,8 @@ from pygame.locals import *
 
 class InputBox(TextBox):
 
-    def __init__( self, width, height, xcoordinate, ycoordinate, fill_colour, highlight, application ):
-        TextBox.__init__( self, width, height, xcoordinate, ycoordinate, fill_colour, highlight, "", application )
+    def __init__( self, dimensions, colours, application ):
+        TextBox.__init__( self, dimensions, colours, "", application )
         self.selected = False
         self.font = pygame.font.SysFont( "monaco", 25 )
     
@@ -26,16 +26,22 @@ class InputBox(TextBox):
     def update_text( self, letter, application ):
         if letter == "delete":
             self.backspace()
+        elif letter == "clear":
+            self.clear()
         elif letter == "enter":
             self.selected = False
         elif letter == "space":
             self.text += " "
-        else:
+        elif letter == "tab":
+            self.tab( application )
+        elif ( len( self.text ) < 38 ):
             self.text += letter.upper()
+        else:
+            return
         textrender = self.font.render( self.text.upper(), 1, application.colour )
         application.display.blit( textrender, self.shape )
     
-    def backspace():
+    def backspace( self ):
         self.text = self.text[:-1]
         
     def clear( self ):
@@ -45,9 +51,20 @@ class InputBox(TextBox):
         return self.text
         
     def select( self ):
-        print("IN INPUT SELECT")
         self.selected = True
         
     def deselect( self ):
         self.selected = False
+
+    def tab( self, application ):
+        j = -1
+        for i in application.input_boxes:
+            j += 1
+            if i == self:
+                if j >= (len(application.input_boxes) - 1):
+                    application.input_boxes[0].select()
+                    application.input_boxes[j].deselect()
+                else:
+                    application.input_boxes[j + 1].select()
+                    application.input_boxes[j].deselect()
             

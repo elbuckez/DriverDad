@@ -4,8 +4,8 @@ from TextBox import *
 
 class TextButton(TextBox):
     
-    def __init__( self, width, height, xcoordinate, ycoordinate, text, base_colour, highlight, application ):
-        TextBox.__init__( self, width, height, xcoordinate, ycoordinate, base_colour, highlight, text, application )
+    def __init__( self, dimensions, colours, text, application ):
+        TextBox.__init__( self, dimensions, colours, text, application )
         
     def recolour( self ):
         self.fill = self.base_highlight
@@ -20,8 +20,6 @@ class TextButton(TextBox):
         print("HERE")
         
     def select( self ):
-        print("IN BUTTON SELECT")
-        self.click()
         self.recolour()
         
     def deselect( self ):

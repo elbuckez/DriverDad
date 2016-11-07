@@ -3,17 +3,23 @@ from pygame.locals import *
 
 class TextBox(object):
 
-    def __init__( self, width, height, xcoordinate, ycoordinate, fill_colour, highlight, text, application ):
-        self.width = width
-        self.height = height
-        self.x = xcoordinate
-        self.y = ycoordinate
-        self.fill = fill_colour
+    def __init__( self, dimensions, colours, text, application ):
+        self.width = dimensions[ 0 ]
+        self.height = dimensions[ 1 ]
+        self.x = dimensions[ 2 ]
+        self.y = dimensions[ 3 ]
+
+        self.fill = colours[ 0 ]
+        self.highlight = colours[ 1 ]
+
+        self.base_colour = self.fill
+        self.base_highlight = self.highlight
+        
+
         self.font = application.get_font()
         self.text = text
-        self.highlight = highlight
-        self.base_highlight = highlight
-        self.base_colour = fill_colour
+        
+        
         
     def draw( self, application ):
         self.rect = pygame.draw.rect( application.display, self.fill, ( self.x, self.y, self.width, self.height), 0)

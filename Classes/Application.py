@@ -1,5 +1,6 @@
 import pygame, sys
 from pygame.locals import *
+from Resources.colours import *
 
 class Application:
     
@@ -28,4 +29,3 @@ class Application:
     def close(self):
         pygame.quit()
         sys.exit() 
-    

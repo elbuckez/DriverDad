@@ -5,7 +5,7 @@ from TextBox import *
 class TitleBox(TextBox):
 
     def __init__( self, width, height, xcoordinate, ycoordinate, fill_colour, text, highlight, application ):
-        TextBox.__init__( self, width, height, xcoordinate, ycoordinate, fill_colour, highlight, text, application )
+        TextBox.__init__( self, [width, height, xcoordinate, ycoordinate], [fill_colour, highlight], text, application )
     
     def update_text( self, letter, surface ):
         self.text += letter
